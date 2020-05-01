@@ -26,7 +26,6 @@ public class Usuario {
 		
 	}
 	
-	//
 	public String getNombre() {
 		return nombre;
 	}
@@ -62,6 +61,13 @@ public class Usuario {
 	}
 	public void setNumero(String numero) {
 		this.numero = numero;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Usuario [nombre=" + this.nombre + ", ape=" + this.ape + ", dir=" + this.dir + ", empresa=" + this.empresa + ", mail=" + this.mail
+				+ ", numero=" + this.numero + "]";
 	}
 	
 	
