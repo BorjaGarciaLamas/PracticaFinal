@@ -7,11 +7,11 @@ public class Usuario {
 	String dir;
 	String empresa;
 	String mail;
-	int numero;
+	String numero;
 	
+	//Constructores
 	
-	
-	public Usuario(String nombre, String ape, String dir, String empresa, String mail, int numero) {
+	public Usuario(String nombre, String ape, String dir, String empresa, String mail, String numero) {
 		super();
 		this.nombre = nombre;
 		this.ape = ape;
@@ -19,6 +19,11 @@ public class Usuario {
 		this.empresa = empresa;
 		this.mail = mail;
 		this.numero = numero;
+	}
+	
+	
+	public Usuario() {
+		
 	}
 	
 	public String getNombre() {
@@ -51,10 +56,10 @@ public class Usuario {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	public int getNumero() {
+	public String getNumero() {
 		return numero;
 	}
-	public void setNumero(int numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 	
