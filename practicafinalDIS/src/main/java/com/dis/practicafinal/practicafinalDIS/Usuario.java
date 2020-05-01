@@ -9,8 +9,8 @@ public class Usuario {
 	String mail;
 	String numero;
 	
-	//Constructores
-	
+	/*-----------------------------------------------------------------------------------------------------------------*/
+	/*Constructores*/
 	public Usuario(String nombre, String ape, String dir, String empresa, String mail, String numero) {
 		super();
 		this.nombre = nombre;
@@ -25,7 +25,8 @@ public class Usuario {
 	public Usuario() {
 		
 	}
-	
+	/*-------------------------------------------------------------------------------------------------------------------*/
+	/*Getters y Setters*/
 	public String getNombre() {
 		return nombre;
 	}
@@ -64,10 +65,18 @@ public class Usuario {
 	}
 
 
+	/*---------------------------------------------------------------------------------------------------------------------*/
+	/*Metodo to string*/
 	@Override
 	public String toString() {
-		return "Usuario [nombre=" + this.nombre + ", ape=" + this.ape + ", dir=" + this.dir + ", empresa=" + this.empresa + ", mail=" + this.mail
-				+ ", numero=" + this.numero + "]";
+		return "Usuario [nombre=" + nombre + ", ape=" + ape + ", dir=" + dir + ", empresa=" + empresa + ", mail=" + mail
+				+ ", numero=" + numero + "]";
+	}
+	/*---------------------------------------------------------------------------------------------------------------------*/
+	/*Otras funciones*/
+	public Usuario modificar(Usuario w) {	
+		return w;
+
 	}
 	
 	

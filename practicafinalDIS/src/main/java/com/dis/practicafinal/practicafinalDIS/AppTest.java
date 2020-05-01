@@ -24,5 +24,29 @@ public class AppTest {
 		
 	}
 	
+	@Test
+	public void modificarUsuario() {
+		Usuario u = new Usuario("Borja", "garcia", "Saliente 651", "BBVA", "borja@gmail.com", "123456789");
+		Usuario w = new Usuario("Carlos", "garcia", "Saliente 651", "BBVA", "borja@gmail.com", "123456789");
+		u = u.modificar(w);		
+		assertEquals(w, u);
+		
+	}
+	
+	@Test
+	public void eliminarUsuario() {
+		Usuario u = new Usuario("Borja", "garcia", "Saliente 651", "BBVA", "borja@gmail.com", "123456789");
+		Lista contactos = new Lista();
+		contactos.addContacto(u);
+		
+		contactos.eliminar(u);
+		
+		int posicion = contactos.buscar(u);
+		
+		assertEquals(posicion, -1);
+		
+		
+	}
+	
 	
 }
