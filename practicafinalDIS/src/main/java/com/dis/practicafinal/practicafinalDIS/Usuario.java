@@ -70,6 +70,10 @@ public class Usuario {
 				+ ", numero=" + numero + "]";
 	}
 	
+	public Usuario modificar(Usuario w) {	
+		return w;
+	}
+	
 	
 	
 	

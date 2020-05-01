@@ -33,5 +33,20 @@ public class AppTest {
 		
 	}
 	
+	@Test
+	public void eliminarUsuario() {
+		Usuario u = new Usuario("Borja", "garcia", "Saliente 651", "BBVA", "borja@gmail.com", "123456789");
+		Lista contactos = new Lista();
+		contactos.addContacto(u);
+		
+		contactos.eliminar(u);
+		
+		int posicion = contactos.buscar(u);
+		
+		assertNull(posicion);
+		
+		
+	}
+	
 	
 }
