@@ -12,6 +12,13 @@ public class Lista {
 		
 	}
 	
+	public Lista() {
+		
+	}
+	
+	
+	
+	
 	public void addContacto(Usuario u) {
 		
 		contactos.add(u);
