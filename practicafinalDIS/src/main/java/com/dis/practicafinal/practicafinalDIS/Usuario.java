@@ -25,7 +25,8 @@ public class Usuario {
 	public Usuario() {
 		
 	}
-	
+	/*-------------------------------------------------------------------------------------------------------------------*/
+	/*Getters y Setters*/
 	public String getNombre() {
 		return nombre;
 	}
@@ -63,13 +64,15 @@ public class Usuario {
 		this.numero = numero;
 	}
 
-
+	/*---------------------------------------------------------------------------------------------------------------------*/
+	/*Metodo to string*/
 	@Override
 	public String toString() {
 		return "Usuario [nombre=" + nombre + ", ape=" + ape + ", dir=" + dir + ", empresa=" + empresa + ", mail=" + mail
 				+ ", numero=" + numero + "]";
 	}
-	
+	/*---------------------------------------------------------------------------------------------------------------------*/
+	/*Otras funciones*/
 	public Usuario modificar(Usuario w) {	
 		return w;
 	}

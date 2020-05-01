@@ -43,7 +43,7 @@ public class AppTest {
 		
 		int posicion = contactos.buscar(u);
 		
-		assertNull(posicion);
+		assertEquals(posicion, -1);
 		
 		
 	}

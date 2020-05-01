@@ -20,7 +20,6 @@ public class Lista {
 		contactos.add(u);
 		
 	}
-
 	
 	/*--------------------------------------------------------------------------------------------------------------------------*/
 	/*Getters y Setters*/
@@ -33,7 +32,6 @@ public class Lista {
 		this.contactos = contactos;
 	}
 
-
 	/*----------------------------------------------------------------------------------------------------------------------------*/
 	/*Otras funciones*/
 	public int Tamanyo() {
@@ -45,6 +43,26 @@ public class Lista {
 		for(int i = 0; i < this.Tamanyo(); i++) {
 			System.out.println(this.getContactos().get(i).toString());
 		}
+	}
+
+	public void eliminar(Usuario u) {
+		
+		int posicion = this.buscar(u);
+		if(posicion!=-1)
+			this.getContactos().remove(posicion);
+		else
+			System.out.println("No se ha encontrado el usuario");
+	}
+
+	public int buscar(Usuario u) {
+		
+		int posicion = -1;
+		
+		for(int i = 0; i < this.Tamanyo() && posicion == -1; i++) {
+			if(this.contactos.get(i) == u)
+				posicion = i;
+		}				
+		return posicion;
 	}
 	
 	
