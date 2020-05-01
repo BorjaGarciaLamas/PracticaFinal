@@ -9,8 +9,8 @@ public class Usuario {
 	String mail;
 	String numero;
 	
-	//Constructores
-	
+	/*-----------------------------------------------------------------------------------------------------------------*/
+	/*Constructores*/
 	public Usuario(String nombre, String ape, String dir, String empresa, String mail, String numero) {
 		super();
 		this.nombre = nombre;
@@ -61,6 +61,13 @@ public class Usuario {
 	}
 	public void setNumero(String numero) {
 		this.numero = numero;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Usuario [nombre=" + nombre + ", ape=" + ape + ", dir=" + dir + ", empresa=" + empresa + ", mail=" + mail
+				+ ", numero=" + numero + "]";
 	}
 	
 	
