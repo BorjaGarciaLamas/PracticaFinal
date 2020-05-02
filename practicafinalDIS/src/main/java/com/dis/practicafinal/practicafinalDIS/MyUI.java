@@ -87,7 +87,7 @@ public class MyUI extends UI {
         grid.setColumns("nombre", "ape", "dir", "empresa", "mail", "numero");
         
         //Cargamos los elementos en la pestaña asociada.
-        tab1.addComponents(grid);
+        tab1.addComponents();
         
         //----------------FIN DE PESTAÑA DE OVERVIEW-------------------
         
@@ -104,7 +104,7 @@ public class MyUI extends UI {
 
         
         //Cargamos los elementos en la pestaña asociada.
-        tab2.addComponents(name2, button);
+        tab2.addComponents();
         
         //----------------FIN DE PESTAÑA DE CREAR USUARIO-------------------
         
