@@ -53,7 +53,7 @@ public class MyUI extends UI {
         final TextField txtnumero = new TextField();
         txtnumero.setCaption("Escribe tu numero de telefono aqui:");
         
-        
+        Grid<Usuario> grid = new Grid<>(Usuario.class);
         
 		Button button = new Button("Anyadir");
         button.addClickListener(e -> {
@@ -66,24 +66,26 @@ public class MyUI extends UI {
         	
         	agenda.addContacto(usuario);
         	
-        	Grid<Usuario> grid = new Grid<>(Usuario.class);
+        	
             grid.setItems(agenda.getContactos());
         	
             layout.addComponent(new Label("Gracias " + txtnombre.getValue() 
                     + ", Se ha registrado satisfactoriamente"));
+            
+            agenda.mostrarLista();
         });
         
-        Grid<Usuario> grid = new Grid<>(Usuario.class);
-        grid.setItems(agenda.getContactos());
-
+        
         grid.setColumns("nombre", "ape", "dir", "empresa", "mail", "numero");
+        
+        grid.setItems(agenda.getContactos());
 		
         layout.addComponents(txtnombre, txtape, txtape, txtdir, txtempresa, txtmail, txtnumero, button, grid);
         
         setContent(layout);
         
         
-        agenda.mostrarLista();
+        
     }
 
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
