@@ -94,14 +94,12 @@ public class Usuario {
 
 	/*----------------------------------------------------------------------------------------------------------------------*/
 	/*OBJECT JAVA -> JSON*/
-	public void convertirJson() throws JsonIOException, IOException {
+	public String convertirJson() {	
 		Gson gson = new Gson();
-
-		// 1. Java object to JSON file
-		gson.toJson(this, new FileWriter("Usuarios.json"));
-
 		// 2. Java object to JSON string
 		String jsonInString = gson.toJson(this);
+		
+		return jsonInString;
 	}
 	
 	/*-----------------------------------------------------------------------------------------------------------------------*/
