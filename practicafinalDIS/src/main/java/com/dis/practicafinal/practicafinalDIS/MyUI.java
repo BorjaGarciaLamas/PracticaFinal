@@ -7,6 +7,7 @@ import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Grid;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
@@ -22,22 +23,62 @@ import com.vaadin.ui.VerticalLayout;
 @Theme("mytheme")
 public class MyUI extends UI {
 
+	Usuario usuario = new Usuario();
 	Lista agenda = new Lista();
 	
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         final VerticalLayout layout = new VerticalLayout();
         
-        final TextField name = new TextField();
-        name.setCaption("Type your name here:");
+        final TextField txtnombre = new TextField();
+        txtnombre.setCaption("Escribe tu nombre aqui:");
+        
 
-        Button button = new Button("Click Me");
+        final TextField txtape = new TextField();
+        txtape.setCaption("Escribe tu apellido aqui:");
+        
+        
+        final TextField txtdir = new TextField();
+        txtdir.setCaption("Escribe tu ndireccion aqui:");
+        
+        
+        final TextField txtempresa = new TextField();
+        txtempresa.setCaption("Escribe tu empresa aqui:");
+        
+        
+        final TextField txtmail = new TextField();
+        txtmail.setCaption("Escribe tu email aqui:");
+        
+        
+        final TextField txtnumero = new TextField();
+        txtnumero.setCaption("Escribe tu numero de telefono aqui:");
+        
+        
+        
+		Button button = new Button("Anyadir");
         button.addClickListener(e -> {
-            layout.addComponent(new Label("Thanks " + name.getValue() 
-                    + ", it works!"));
+        	usuario.setNombre(txtnombre.getValue());
+        	usuario.setApe(txtape.getValue());
+        	usuario.setDir(txtdir.getValue());
+        	usuario.setEmpresa(txtempresa.getValue());
+        	usuario.setMail(txtmail.getValue());
+        	usuario.setNumero(txtnumero.getValue());
+        	
+        	agenda.addContacto(usuario);
+        	
+        	Grid<Usuario> grid = new Grid<>(Usuario.class);
+            grid.setItems(agenda.getContactos());
+        	
+            layout.addComponent(new Label("Gracias " + txtnombre.getValue() 
+                    + ", Se ha registrado satisfactoriamente"));
         });
         
-        layout.addComponents(name, button);
+        Grid<Usuario> grid = new Grid<>(Usuario.class);
+        grid.setItems(agenda.getContactos());
+
+        grid.setColumns("nombre", "ape", "dir", "empresa", "mail", "numero");
+		
+        layout.addComponents(txtnombre, txtape, txtape, txtdir, txtempresa, txtmail, txtnumero, button, grid);
         
         setContent(layout);
         
