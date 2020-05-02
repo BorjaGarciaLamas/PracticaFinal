@@ -27,6 +27,7 @@ import com.vaadin.ui.VerticalLayout;
 @Theme("mytheme")
 public class MyUI extends UI {
 
+<<<<<<< HEAD
 	Usuario usuario = new Usuario();
 	Lista agenda = new Lista();
 	Usuario uborrar = new Usuario();
@@ -55,6 +56,16 @@ public class MyUI extends UI {
 		}
 		*/
     // ------------------------ FIN pasar de objeto a json ---------------------------------------------------------------------
+=======
+    Lista agenda = new Lista();
+
+    @Override
+    protected void init(VaadinRequest vaadinRequest) {
+        final VerticalLayout layout = new VerticalLayout();
+
+        final TextField name = new TextField();
+        name.setCaption("Type your name here:");
+>>>>>>> 2983ea1ba59102f02eb7b6d3e9fb630dd44930f2
 
     	
     // ----------------------------- Pasar de json a Objeto PETA -------------------------------------------------------------------
@@ -116,6 +127,7 @@ public class MyUI extends UI {
             
             agenda.mostrarLista();
         });
+<<<<<<< HEAD
         
         
         grid.setColumns("nombre", "ape", "dir", "empresa", "mail", "numero");
@@ -252,9 +264,18 @@ public class MyUI extends UI {
         setContent(layout3);
     // ---------------------------------------------------- FIN Modificar usuario ----------------------------------------------------------
         
+=======
+
+        layout.addComponents(name, button);
+
+        setContent(layout);
+
+
+        agenda.MostrarLista();
+>>>>>>> 2983ea1ba59102f02eb7b6d3e9fb630dd44930f2
     }
 
-    @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
+    @WebServlet(urlPatterns = "/", name = "MyUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
     public static class MyUIServlet extends VaadinServlet {
     }
