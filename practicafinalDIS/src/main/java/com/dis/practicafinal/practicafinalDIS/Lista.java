@@ -66,12 +66,11 @@ public class Lista {
 	}
 
 	
-	public int buscar(Usuario u) {
-		
-		int posicion = -1;
-		
+	public int buscar(Usuario u) {		
+		int posicion = -1;		
 		for(int i = 0; i < this.tamanyo(); i++) {
-			if(this.contactos.get(i) == u)
+			/*Comprobamos el nombre*/
+			if(u.getNombre().equals(this.contactos.get(i).getNombre()) && (u.getApe().equals(this.contactos.get(i).getApe())))
 				posicion = i;
 		}
 		if(posicion == -1)
@@ -85,7 +84,7 @@ public class Lista {
 		Usuario usuario_aux = new Usuario();
 		int encontrado = -1;
 		for(int i =0; i < this.tamanyo() && encontrado == -1; i++) {
-			if(this.getContactos().get(i) == u) {
+			if(u.getNombre().equals(this.contactos.get(i).getNombre()) && (u.getApe().equals(this.contactos.get(i).getApe()))) {
 				usuario_aux = u;
 				encontrado = 1;
 			}
@@ -94,6 +93,31 @@ public class Lista {
 		
 	}
 	
+	public String mostrarApellidoporNombre(Usuario u) {
+		
+		String datos = "";
+		int existe = 0;
+		if(u.getNombre().equals("")) {
+			
+			datos = "No hay contactos con ese nombre";
+			
+		}
+		else {
+			datos = "Para" + u.getNombre() + "Existen los siguientes apellidos:\n";
+			for(int i = 0; i < this.tamanyo(); i++) {
+				if(u.getNombre().equals(this.contactos.get(i).getNombre())) {
+					datos = datos + contactos.get(i).getApe() + "\n";
+					existe++;
+				}
+				
+			}
+			if(existe == 0)
+				datos = "No hay contactos con ese nombre";
+			
+		}
+			
+		return datos;
+	}
 	
 	
 	
