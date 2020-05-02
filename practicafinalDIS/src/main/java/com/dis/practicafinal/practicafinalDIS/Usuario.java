@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 
 public class Usuario {
@@ -94,18 +95,23 @@ public class Usuario {
 
 	/*----------------------------------------------------------------------------------------------------------------------*/
 	/*OBJECT JAVA -> JSON*/
-	public void convertirJson() throws JsonIOException, IOException {
+	public String convertirJson() {	
 		Gson gson = new Gson();
-
-		// 1. Java object to JSON file
-		gson.toJson(this, new FileWriter("Usuarios.json"));
-
-		// 2. Java object to JSON string
 		String jsonInString = gson.toJson(this);
+		
+		return jsonInString;
 	}
 	
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	/*JSON -> OBJECT JAVA*/
-	
+	public Usuario convertirObjeto(String objetojson) {
+		Gson g = new Gson();
+		
+		Usuario aux = g.fromJson(objetojson, this.getClass());
+		
+		return aux;
+
+		
+	}
 	
 }

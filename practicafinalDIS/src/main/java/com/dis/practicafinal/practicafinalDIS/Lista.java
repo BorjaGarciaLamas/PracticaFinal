@@ -1,5 +1,11 @@
 package com.dis.practicafinal.practicafinalDIS;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Lista {
@@ -92,53 +98,112 @@ public class Lista {
 		return usuario_aux;
 		
 	}
+		
+/*------------------------------------------PARTE JSON-------------------------------------------------------------------*/
+/*GUARDAR*/
+	public void guardarJson() throws IOException {
+		File comprobacion = null;
+		FileWriter fichero = null;
+		PrintWriter pw = null;
+		
+		comprobacion = new File("agenda.json");
+		if(comprobacion.exists()) {/*Anyadir al final*/
+			fichero = new FileWriter(comprobacion,true);
+			pw = new PrintWriter(comprobacion);
+			for(int i = 0; i < this.tamanyo();i++)
+				pw.println(this.getContactos().get(i).convertirJson());
+			fichero.close();
+			pw.close();
+			System.out.println("Se han guardado correctamente");
+		}
+		else {
+			fichero = new FileWriter(comprobacion);
+			pw = new PrintWriter(comprobacion);
+			for(int i = 0; i < this.tamanyo();i++)
+				pw.println(this.getContactos().get(i).convertirJson());
+			fichero.close();
+			pw.close();
+			System.out.println("Se han guardado correctamente");
+		}				
+	}
+	
+/*CARGAR*/
+	public Lista cargarJson() throws IOException {
+		File comprobacion = null;
+		FileReader fr = null;
+		BufferedReader br = null;
+		
+		Lista agenda = new Lista();
+		
+		comprobacion = new File("agenda.json");
+		if(comprobacion.exists()) {
+			String linea;
+			while((linea=br.readLine())!=null) {
+				Usuario user = new Usuario();
+				agenda.addContacto(user.convertirObjeto(linea));
+			}
+			
+		}else {
+			System.out.println("No se ha podido cargar");
+		}
+		
+		return agenda;
+	}
+	
+	
 	
 /*---------------------------------------------IMPORTANTES------------------------------------------------------------*/
 /*Si el usuario se ha dejado un campo vacio*/
+	
+/*Si deja en apellido vacio, mostrarlo*/
 	public String mostrarApellidoporNombre(Usuario u) {
 		
 		String datos = "";
 		int existe = 0;
+		/*Control de errores*/
 		if(u.getNombre().equals("")) {
 			
 			datos = "No hay contactos con ese nombre";
 			
 		}
 		else {
+			/*Actualizamos*/
 			datos = "Para" + u.getNombre() + "Existen los siguientes apellidos:\n";
 			for(int i = 0; i < this.tamanyo(); i++) {
-				if(u.getNombre().equals(this.contactos.get(i).getNombre())) {
+				if(u.getNombre().equals(this.contactos.get(i).getNombre())) {/*Comprobacion OJO que puede haber mas de uno con el mismo nombre*/
 					datos = datos + contactos.get(i).getApe() + "\n";
 					existe++;
 				}
 				
 			}
-			if(existe == 0)
+			if(existe == 0)/*No deberia llegas a aqui*/
 				datos = "No hay contactos con ese nombre";			
 		}			
 		return datos;
 	}
 	
-	
+/*Si deja el nombre vacio*/
 public String mostrarNombreporApellido(Usuario u) {
-		
+
 		String datos = "";
 		int existe = 0;
+		/*Control de errores*/
 		if(u.getApe().equals("")) {
 			
 			datos = "No hay contactos con ese nombre";
 			
 		}
 		else {
+			/*Actualizamos*/
 			datos = "Para" + u.getApe() + "Existen los siguientes apellidos:\n";
 			for(int i = 0; i < this.tamanyo(); i++) {
-				if(u.getApe().equals(this.contactos.get(i).getApe())) {
+				if(u.getApe().equals(this.contactos.get(i).getApe())) {/*Comprobacion OJO que puede haber mas de uno con el mismo apellido*/
 					datos = datos + contactos.get(i).getApe() + "\n";
 					existe++;
 				}
 				
 			}
-			if(existe == 0)
+			if(existe == 0)/*Nunca habria que haber llegado a este punto*/
 				datos = "No hay contactos con ese nombre";			
 		}			
 		return datos;
