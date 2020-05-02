@@ -1,5 +1,11 @@
 package com.dis.practicafinal.practicafinalDIS;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
+
 public class Usuario {
 
 	private int id = -1;
@@ -86,10 +92,20 @@ public class Usuario {
 
 	}
 
+	/*----------------------------------------------------------------------------------------------------------------------*/
+	/*OBJECT JAVA -> JSON*/
+	public void convertirJson() throws JsonIOException, IOException {
+		Gson gson = new Gson();
 
+		// 1. Java object to JSON file
+		gson.toJson(this, new FileWriter("Usuarios.json"));
+
+		// 2. Java object to JSON string
+		String jsonInString = gson.toJson(this);
+	}
 	
-	
-	
+	/*-----------------------------------------------------------------------------------------------------------------------*/
+	/*JSON -> OBJECT JAVA*/
 	
 	
 }
