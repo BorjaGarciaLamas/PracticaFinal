@@ -57,8 +57,10 @@ public class Lista {
 	public void eliminar(Usuario u) {
 		
 		int posicion = this.buscar(u);
-		if(posicion!=-1)
+		if(posicion!=-1) {
 			this.getContactos().remove(posicion);
+			System.out.println("Se ha eliminado el usuario");
+		}
 		else
 			System.out.println("No se ha encontrado el usuario");
 	}
@@ -73,8 +75,23 @@ public class Lista {
 				posicion = i;
 		}
 		if(posicion == -1)
-			System.out.println("No se ha encontrado el usuario");
+			System.out.println("No se ha podido encontrado el usuario");
 		return posicion;
+	}
+
+
+	public Usuario obtener(Usuario u) {
+		
+		Usuario usuario_aux = new Usuario();
+		int encontrado = -1;
+		for(int i =0; i < this.Tamanyo() && encontrado == -1; i++) {
+			if(this.getContactos().get(i) == u) {
+				usuario_aux = u;
+				encontrado = 1;
+			}
+		}
+		return usuario_aux;
+		
 	}
 	
 	
