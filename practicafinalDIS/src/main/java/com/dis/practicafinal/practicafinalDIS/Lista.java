@@ -1,6 +1,8 @@
 package com.dis.practicafinal.practicafinalDIS;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -112,7 +114,7 @@ public class Lista {
 				pw.println(this.getContactos().get(i).convertirJson());
 			fichero.close();
 			pw.close();
-			System.out.println("");
+			System.out.println("Se han guardado correctamente");
 		}
 		else {
 			fichero = new FileWriter(comprobacion);
@@ -121,7 +123,31 @@ public class Lista {
 				pw.println(this.getContactos().get(i).convertirJson());
 			fichero.close();
 			pw.close();
+			System.out.println("Se han guardado correctamente");
 		}				
+	}
+	
+/*CARGAR*/
+	public Lista cargarJson() throws IOException {
+		File comprobacion = null;
+		FileReader fr = null;
+		BufferedReader br = null;
+		
+		Lista agenda = new Lista();
+		
+		comprobacion = new File("agenda.json");
+		if(comprobacion.exists()) {
+			String linea;
+			while((linea=br.readLine())!=null) {
+				Usuario user = new Usuario();
+				agenda.addContacto(user.convertirObjeto(linea));
+			}
+			
+		}else {
+			System.out.println("No se ha podido cargar");
+		}
+		
+		return agenda;
 	}
 	
 	
