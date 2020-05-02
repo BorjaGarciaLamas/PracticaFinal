@@ -1,5 +1,7 @@
 package com.dis.practicafinal.practicafinalDIS;
 
+import java.util.Set;
+
 import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.annotations.Theme;
@@ -8,6 +10,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
+import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
@@ -79,6 +82,14 @@ public class MyUI extends UI {
         grid.setColumns("nombre", "ape", "dir", "empresa", "mail", "numero");
         
         grid.setItems(agenda.getContactos());
+        
+
+        // pulsar en un elemento del grid saca el detalle (este coso solo la funcion mostrar nombre por apellido)
+        grid.addItemClickListener(
+                event -> layout.addComponent(new Label(agenda.mostrarNombreporApellido(event.getItem()) ))
+                );
+
+        
 		
         layout.addComponents(txtnombre, txtape, txtape, txtdir, txtempresa, txtmail, txtnumero, button, grid);
         
