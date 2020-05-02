@@ -70,7 +70,7 @@ public class Lista {
 		
 		int posicion = -1;
 		
-		for(int i = 0; i < this.tamanyo() && posicion == -1; i++) {
+		for(int i = 0; i < this.tamanyo(); i++) {
 			if(this.contactos.get(i) == u)
 				posicion = i;
 		}
