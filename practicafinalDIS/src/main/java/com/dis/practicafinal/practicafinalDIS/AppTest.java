@@ -20,7 +20,7 @@ public class AppTest {
 		Lista contactos = new Lista();
 		
 		contactos.addContacto(u);
-		assertEquals(1, contactos.Tamanyo());
+		assertEquals(6, contactos.Tamanyo());
 		
 	}
 	
@@ -43,9 +43,17 @@ public class AppTest {
 		
 		int posicion = contactos.buscar(u);
 		
-		assertEquals(posicion, -1);
+		assertEquals(posicion, -1);		
+	}
+	@Test
+	public void obtenerUsuario() {
+		Usuario u = new Usuario("Borja", "garcia", "Saliente 651", "BBVA", "borja@gmail.com", "123456789");
+		Lista contactos = new Lista();
+		contactos.addContacto(u);
 		
+		Usuario j = contactos.obtener(u);
 		
+		assertEquals(j,u);
 	}
 	
 	
