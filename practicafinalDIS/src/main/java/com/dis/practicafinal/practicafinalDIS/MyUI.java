@@ -42,7 +42,7 @@ public class MyUI extends UI {
         setContent(layout);
         
         
-        agenda.MostrarLista();
+        agenda.mostrarLista();
     }
 
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
