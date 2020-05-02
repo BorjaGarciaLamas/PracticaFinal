@@ -38,8 +38,8 @@ public class MyUI extends UI {
 
 	
 	//Inicialización de variables
-	Lista agenda = new Lista();
 	
+	Lista agenda = new Lista();
 	//Web de Vaadin
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -170,8 +170,7 @@ public class MyUI extends UI {
 	            tab.removeAllComponents();
 	            
 	            switch(caption) {
-	            case "Overview":
-	            	System.out.println(tab2.getComponentCount());
+	            case "Overview":	            	
 	            	for(int i = 0; i<tab1.getComponentCount(); i++) 
 			            tab.addComponents(tab1.getComponent(i));
 	            	break;
