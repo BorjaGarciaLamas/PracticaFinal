@@ -93,6 +93,8 @@ public class Lista {
 		
 	}
 	
+/*---------------------------------------------IMPORTANTES------------------------------------------------------------*/
+/*Si el usuario se ha dejado un campo vacio*/
 	public String mostrarApellidoporNombre(Usuario u) {
 		
 		String datos = "";
@@ -112,13 +114,34 @@ public class Lista {
 				
 			}
 			if(existe == 0)
-				datos = "No hay contactos con ese nombre";
-			
-		}
-			
+				datos = "No hay contactos con ese nombre";			
+		}			
 		return datos;
 	}
 	
 	
+public String mostrarNombreporApellido(Usuario u) {
+		
+		String datos = "";
+		int existe = 0;
+		if(u.getApe().equals("")) {
+			
+			datos = "No hay contactos con ese nombre";
+			
+		}
+		else {
+			datos = "Para" + u.getApe() + "Existen los siguientes apellidos:\n";
+			for(int i = 0; i < this.tamanyo(); i++) {
+				if(u.getApe().equals(this.contactos.get(i).getApe())) {
+					datos = datos + contactos.get(i).getApe() + "\n";
+					existe++;
+				}
+				
+			}
+			if(existe == 0)
+				datos = "No hay contactos con ese nombre";			
+		}			
+		return datos;
+	}
 	
 }
