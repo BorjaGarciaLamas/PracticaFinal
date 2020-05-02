@@ -40,9 +40,15 @@ public class MyUI extends UI {
         layout.addComponents(name, button);
 
         setContent(layout);
+<<<<<<< HEAD
 
 
         agenda.MostrarLista();
+=======
+        
+        
+        agenda.mostrarLista();
+>>>>>>> 6b6d176f0a9b304b23cf0edace503ed845c45ef5
     }
 
     @WebServlet(urlPatterns = "/", name = "MyUIServlet", asyncSupported = true)

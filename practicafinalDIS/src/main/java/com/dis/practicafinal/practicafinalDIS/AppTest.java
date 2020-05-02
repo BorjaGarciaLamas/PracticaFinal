@@ -20,7 +20,7 @@ public class AppTest {
 		Lista contactos = new Lista();
 		
 		contactos.addContacto(u);
-		assertEquals(6, contactos.Tamanyo());
+		assertEquals(6, contactos.tamanyo());
 		
 	}
 	

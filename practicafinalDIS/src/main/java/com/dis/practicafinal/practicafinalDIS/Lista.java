@@ -43,13 +43,13 @@ public class Lista {
 
 	/*----------------------------------------------------------------------------------------------------------------------------*/
 	/*Otras funciones*/
-	public int Tamanyo() {
+	public int tamanyo() {
 		
 		return contactos.size();
 	}
 	
-	public void MostrarLista() {
-		for(int i = 0; i < this.Tamanyo(); i++) {
+	public void mostrarLista() {
+		for(int i = 0; i < this.tamanyo(); i++) {
 			System.out.println(this.getContactos().get(i).toString());
 		}
 	}
@@ -70,7 +70,7 @@ public class Lista {
 		
 		int posicion = -1;
 		
-		for(int i = 0; i < this.Tamanyo() && posicion == -1; i++) {
+		for(int i = 0; i < this.tamanyo(); i++) {
 			if(this.contactos.get(i) == u)
 				posicion = i;
 		}
@@ -84,7 +84,7 @@ public class Lista {
 		
 		Usuario usuario_aux = new Usuario();
 		int encontrado = -1;
-		for(int i =0; i < this.Tamanyo() && encontrado == -1; i++) {
+		for(int i =0; i < this.tamanyo() && encontrado == -1; i++) {
 			if(this.getContactos().get(i) == u) {
 				usuario_aux = u;
 				encontrado = 1;
