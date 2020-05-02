@@ -7,6 +7,7 @@ import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Grid;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
@@ -37,12 +38,17 @@ public class MyUI extends UI {
                     + ", it works!"));
         });
         
-        layout.addComponents(name, button);
+        
+        Grid<Usuario> grid = new Grid<>(Usuario.class);
+        grid.setItems(agenda.getContactos());
+
+        grid.setColumns("nombre", "ape", "dir", "empresa", "mail", "numero");
+        layout.addComponents(name, button, grid);
         
         setContent(layout);
         
         
-        agenda.mostrarLista();
+        agenda.mostrarLista();   
     }
 
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
