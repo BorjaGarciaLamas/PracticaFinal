@@ -22,6 +22,8 @@ import com.vaadin.ui.VerticalLayout;
 @Theme("mytheme")
 public class MyUI extends UI {
 
+	Lista agenda = new Lista();
+	
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         final VerticalLayout layout = new VerticalLayout();
@@ -38,6 +40,9 @@ public class MyUI extends UI {
         layout.addComponents(name, button);
         
         setContent(layout);
+        
+        
+        agenda.MostrarLista();
     }
 
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)

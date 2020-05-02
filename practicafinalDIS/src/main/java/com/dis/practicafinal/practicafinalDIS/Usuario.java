@@ -2,12 +2,13 @@ package com.dis.practicafinal.practicafinalDIS;
 
 public class Usuario {
 
-	String nombre;
-	String ape;
-	String dir;
-	String empresa;
-	String mail;
-	String numero;
+	private int id = -1;
+	private String nombre;
+	private String ape;
+	private String dir;
+	private String empresa;
+	private String mail;
+	private String numero;
 	
 	/*-----------------------------------------------------------------------------------------------------------------*/
 	/*Constructores*/
@@ -63,14 +64,20 @@ public class Usuario {
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 
 
 	/*---------------------------------------------------------------------------------------------------------------------*/
 	/*Metodo to string*/
 	@Override
 	public String toString() {
-		return "Usuario [nombre=" + nombre + ", ape=" + ape + ", dir=" + dir + ", empresa=" + empresa + ", mail=" + mail
-				+ ", numero=" + numero + "]";
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", ape=" + ape + ", dir=" + dir + ", empresa=" + empresa
+				+ ", mail=" + mail + ", numero=" + numero + "]";
 	}
 	/*---------------------------------------------------------------------------------------------------------------------*/
 	/*Otras funciones*/
@@ -78,6 +85,9 @@ public class Usuario {
 		return w;
 
 	}
+
+
+	
 	
 	
 	

@@ -5,13 +5,17 @@ import java.util.ArrayList;
 public class Lista {
 
 	private ArrayList<Usuario> contactos;
+	private int id = 0;
 	
 	/*------------------------------------------------------------------------------------------------------------------------------*/
 	
 		
 	public void addContacto(Usuario u) {
 		
-		this.contactos.add(u);		
+		u.setId(this.id);
+		this.id++;
+		this.contactos.add(u);
+		
 	}
 	
 	
