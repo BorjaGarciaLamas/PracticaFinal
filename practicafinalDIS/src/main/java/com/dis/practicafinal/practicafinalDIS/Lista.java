@@ -31,11 +31,12 @@ public class Lista {
 		this.contactos = new ArrayList<Usuario>();
 		
 		
-		this.addContacto(new Usuario("ObiWan","Kenobi","Coruscant","OrdenJedi","obiwankenobi@ordenjedi.com","123456"));
+/*		this.addContacto(new Usuario("ObiWan","Kenobi","Coruscant","OrdenJedi","obiwankenobi@ordenjedi.com","123456"));
 		this.addContacto(new Usuario("Anakin","SkyWalker","Tatooine","OrdenJedi","anakinskywalker@ordenjedi.com","1236"));
 		this.addContacto(new Usuario("Lando","Calrissian","Ciudad de las Nubes","Gobierno","landomilenario@codere.com","569"));
 		this.addContacto(new Usuario("Leia","Organa","Not Alderaan","Republica","lorganarep@futurarepublica.com","3456789"));
 		this.addContacto(new Usuario("Han","Solo","Tatooine","Jabba the hutt,","halconmilenariosolo@jabbafriends.com","45679"));
+*/
 		
 	}
 	
@@ -130,7 +131,7 @@ public class Lista {
 	}
 	
 /*CARGAR*/
-	public Lista cargarJson() throws IOException {
+	public Lista cargarJson() throws IOException  {
 		File comprobacion = null;
 		FileReader fr = null;
 		BufferedReader br = null;
@@ -139,11 +140,21 @@ public class Lista {
 		
 		comprobacion = new File("agenda.json");
 		if(comprobacion.exists()) {
-			String linea;
-			while((linea=br.readLine())!=null) {
-				Usuario user = new Usuario();
-				agenda.addContacto(user.convertirObjeto(linea));
+			fr = new FileReader(comprobacion);
+			br = new BufferedReader(fr);
+			String linea = br.readLine();
+			if(linea != null) {
+				while(linea!=null) {
+					Usuario user = new Usuario();
+					agenda.addContacto(user.convertirObjeto(linea));
+					linea = br.readLine();
+				}
 			}
+			else {
+				System.out.println("Datos no validos");
+			}
+			fr.close();
+			br.close();
 			
 		}else {
 			System.out.println("No se ha podido cargar");
