@@ -39,6 +39,7 @@ public class MyUI extends UI {
     	//Vista general.
         final VerticalLayout layout = new VerticalLayout();
         
+        
         // ------------------------- pasar de objeto a json -------------------------------------------------------------------------
     	/*
     	agenda.addContacto(new Usuario("ObiWan","Kenobi","Coruscant","OrdenJedi","obiwankenobi@ordenjedi.com","123456"));
@@ -95,8 +96,22 @@ public class MyUI extends UI {
         
         //Grid
         Grid<Usuario> grid = new Grid<>(Usuario.class);
+       
+        grid.setWidth("90%");
+        
+     // comprobacion para ajustar la altura
+    	if(agenda.tamanyo()>=8){
+    		grid.setHeightByRows(8);
+    	}else {
+    		grid.setHeightByRows(agenda.tamanyo());
+    	}
+    	
         grid.setItems(agenda.getContactos());
         grid.setColumns("nombre", "ape", "dir", "empresa", "mail", "numero");
+        
+       
+       
+        
         
         //------------FIN DE ELEMENTOS PRINCIPALES--------------
         
@@ -108,7 +123,7 @@ public class MyUI extends UI {
         final TextField name1 = new TextField();
         name1.setCaption("Pestaña 1");
         
-        //Pulsar en un elemento del grid saca el detalle (este coso solo la funcion mostrar nombre por apellido)
+        //Pulsar en un elemento del grid saca el detalle 
         grid.addItemClickListener(
                 event -> tab1.addComponent(new Label(event.getItem().toString() ))
                 );
@@ -152,8 +167,15 @@ public class MyUI extends UI {
         	
         	agenda.addContacto(usuario);
         	
+        	// comprobacion para ajustar la altura
+        	if(agenda.tamanyo()>=8){
+        		grid.setHeightByRows(8);
+        	}else {
+        		grid.setHeightByRows(agenda.tamanyo());
+        	}
         	
             grid.setItems(agenda.getContactos());
+            
         	
             tab2.addComponent(new Label("Gracias " + txtnombre.getValue() 
                     + ", Se ha registrado satisfactoriamente"));
@@ -215,7 +237,15 @@ public class MyUI extends UI {
             umodificar.setEmpresa(modempresa.getValue());
             umodificar.setMail(modmail.getValue());
             umodificar.setNumero(modnumero.getValue());       	
-        	//agenda.addContacto(usuario);            
+        	//agenda.addContacto(usuario); 
+            
+         // comprobacion para ajustar la altura
+        	if(agenda.tamanyo()>=8){
+        		grid.setHeightByRows(8);
+        	}else {
+        		grid.setHeightByRows(agenda.tamanyo());
+        	}
+        	
             grid.setItems(agenda.getContactos());                       
             
             System.out.println("\n Despues");
@@ -223,6 +253,13 @@ public class MyUI extends UI {
         });
               
         grid.setColumns("nombre", "ape", "dir", "empresa", "mail", "numero");
+        
+     // comprobacion para ajustar la altura
+    	if(agenda.tamanyo()>=8){
+    		grid.setHeightByRows(8);
+    	}else {
+    		grid.setHeightByRows(agenda.tamanyo());
+    	}
         
         grid.setItems(agenda.getContactos());
 
@@ -261,6 +298,13 @@ public class MyUI extends UI {
            
            grid.setColumns("nombre", "ape", "dir", "empresa", "mail", "numero");
            
+	        // comprobacion para ajustar la altura
+	       	if(agenda.tamanyo()>=8){
+	       		grid.setHeightByRows(8);
+	       	}else {
+	       		grid.setHeightByRows(agenda.tamanyo());
+	       	}
+	       	
            grid.setItems(agenda.getContactos());
            
            //Cargamos los elementos en la pestaña asociada.
