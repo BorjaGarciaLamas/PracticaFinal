@@ -28,5 +28,12 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_251/javafx-src.zip"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_251/src.zip"/>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="target/generated-resources/gwt">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
