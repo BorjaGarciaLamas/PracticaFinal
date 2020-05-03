@@ -380,15 +380,19 @@ public class MyUI extends UI {
 	            switch(caption) {
 	            case "Overview":	            	 
 	            	tab.addComponents(Descripcion0, grid);
+	            	mensajeAbajo.setCaption("");
 	            	break;
 	            case "Añadir":
 	                tab.addComponents(Descripcion1, txtnombre, txtape, txtape, txtdir, txtempresa, txtmail, txtnumero, button, grid);
+	                mensajeAbajo.setCaption("");
 	            	break;
 	            case "Modificar":
 	                tab.addComponents(Descripcion2, grid, modnombre, modape, moddir, modempresa, modmail, modnumero, buttonModificar);
+	                mensajeAbajo.setCaption("");
 	                break;
 	            case "Borrar":
 	            	tab.addComponents(Descripcion3, grid, buttonEliminar);
+	            	mensajeAbajo.setCaption("");
 	            	break;
 	            case "Configuración (Gson)":
 	            	tab.addComponents(Descripcion4, textoGson, buttonGson);
