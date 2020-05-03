@@ -68,15 +68,15 @@ public class MyUI extends UI {
     // ------------------------ FIN pasar de objeto a json ---------------------------------------------------------------------
 
     	
-    // ----------------------------- Pasar de json a Objeto PETA -------------------------------------------------------------------
-    	/*
+    // ----------------------------- Cargamos los objetos Json a la agenda -------------------------------------------------------------------
+    	
 		try {
 			agenda = agenda.cargarJson();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-    	*/
+    	
     // ----------------------------  Fin Pasar de json a objeto PETA -------------------------------------------------------------------
  
         
@@ -178,8 +178,13 @@ public class MyUI extends UI {
         	usuario.setMail(txtmail.getValue());
         	usuario.setNumero(txtnumero.getValue());
         	
-        	agenda.addContacto(usuario);
-        	
+    		if(usuario.getNombre().equals("") || usuario.getApe().equals("") || usuario.getDir().equals("") || usuario.getEmpresa().equals("") || usuario.getMail().equals("") || usuario.getNumero().equals("")) {
+                mensajeAbajo.setCaption("Complete todos los campos antes de añadir un nuevo usuario.");
+    		}
+    		else {
+    			agenda.addContacto(usuario);
+            	mensajeAbajo.setCaption("Se ha procedido a añadir al usuario " + usuario.getNombre());
+    		}
         	//Comprobacion para ajustar la altura
             if(agenda.tamanyo()>=8)
                 grid.setHeightByRows(8);
@@ -187,8 +192,6 @@ public class MyUI extends UI {
                 grid.setHeightByRows(agenda.tamanyo());
             
             grid.setItems(agenda.getContactos());
-       		
-            mensajeAbajo.setCaption("Se ha procedido a añadir al usuario " + usuario.getNombre());
             
             agenda.mostrarLista();
         });
@@ -239,8 +242,22 @@ public class MyUI extends UI {
         	System.out.println("Antes");
         	agenda.mostrarLista();
         	
-       		mensajeAbajo.setCaption("Se ha procedido a modificar el usuario " + umodificar.getNombre());
+        	Usuario a = new Usuario(); 
+        	a.setNombre(modnombre.getValue());
+            a.setApe(modape.getValue());
+            a.setDir(moddir.getValue());
+            a.setEmpresa(modempresa.getValue());
+            a.setMail(modmail.getValue());
+            a.setNumero(modnumero.getValue()); 
+        	
+            if(umodificar == null)
+            	umodificar = a;
             
+        	if(agenda.buscar(umodificar) != -1)
+        		mensajeAbajo.setCaption("Se ha procedido a modificar el usuario.");
+            else
+        		mensajeAbajo.setCaption("No existe el usuario.");
+        	
             umodificar.setNombre(modnombre.getValue());
             umodificar.setApe(modape.getValue());
             umodificar.setDir(moddir.getValue());
@@ -249,6 +266,7 @@ public class MyUI extends UI {
             umodificar.setNumero(modnumero.getValue());       	
         	//agenda.addContacto(usuario);
             //Comprobacion para ajustar la altura
+            
             if(agenda.tamanyo()>=8)
                 grid.setHeightByRows(8);
             else 
@@ -341,7 +359,7 @@ public class MyUI extends UI {
     		        textoAux = textoAux + myReader.nextLine() + "<br/>";
     		      }
     		      //Ponemos los Labels.
-    		      mensajeAbajo.setCaption("Json generado");
+    		      mensajeAbajo.setCaption("Agenda guardada.");
     		      textoGson.setCaption(textoAux);
     		      //Cerramos el archivo.
     		      myReader.close();
