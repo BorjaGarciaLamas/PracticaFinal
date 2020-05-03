@@ -17,7 +17,7 @@ public class Lista {
 	
 		
 	public void addContacto(Usuario u) {
-		
+
 		u.setId(this.id);
 		this.id++;
 		this.contactos.add(u);
@@ -29,22 +29,17 @@ public class Lista {
 	public Lista() {
 		
 		this.contactos = new ArrayList<Usuario>();
-		
-		try {
-			this.cargarJson();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	}
+
+
 		
 /*		this.addContacto(new Usuario("ObiWan","Kenobi","Coruscant","OrdenJedi","obiwankenobi@ordenjedi.com","123456"));
 		this.addContacto(new Usuario("Anakin","SkyWalker","Tatooine","OrdenJedi","anakinskywalker@ordenjedi.com","1236"));
 		this.addContacto(new Usuario("Lando","Calrissian","Ciudad de las Nubes","Gobierno","landomilenario@codere.com","569"));
 		this.addContacto(new Usuario("Leia","Organa","Not Alderaan","Republica","lorganarep@futurarepublica.com","3456789"));
 		this.addContacto(new Usuario("Han","Solo","Tatooine","Jabba the hutt,","halconmilenariosolo@jabbafriends.com","45679"));
-*/
-		
-	}
+
+	
 	
 	/*--------------------------------------------------------------------------------------------------------------------------*/
 	/*Getters y Setters*/
@@ -82,11 +77,13 @@ public class Lista {
 
 	
 	public int buscar(Usuario u) {		
-		int posicion = -1;		
-		for(int i = 0; i < this.tamanyo(); i++) {
-			/*Comprobamos el nombre*/
-			if(u.getNombre().equals(this.contactos.get(i).getNombre()) && (u.getApe().equals(this.contactos.get(i).getApe())))
-				posicion = i;
+		int posicion = -1;
+		if(u!=null) {					
+			for(int i = 0; i < this.tamanyo(); i++) {
+				/*Comprobamos el nombre*/
+				if(u.getNombre().equals(this.contactos.get(i).getNombre()) && (u.getApe().equals(this.contactos.get(i).getApe())))
+					posicion = i;
+			}
 		}
 		if(posicion == -1)
 			System.out.println("No se ha podido encontrado el usuario");
@@ -135,8 +132,9 @@ public class Lista {
 			System.out.println("Se han guardado correctamente");
 		}				
 	}
-	
-/*CARGAR*/
+
+	/*CARGAR*/
+
 	public Lista cargarJson() throws IOException  {
 		File comprobacion = null;
 		FileReader fr = null;
@@ -171,6 +169,8 @@ public class Lista {
 	
 	
 	
+	
+	
 /*---------------------------------------------IMPORTANTES------------------------------------------------------------*/
 /*Si el usuario se ha dejado un campo vacio*/
 	
@@ -202,7 +202,7 @@ public class Lista {
 	}
 	
 /*Si deja el nombre vacio*/
-public String mostrarNombreporApellido(Usuario u) {
+	public String mostrarNombreporApellido(Usuario u) {
 
 		String datos = "";
 		int existe = 0;

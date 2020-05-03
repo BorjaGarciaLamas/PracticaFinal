@@ -1,11 +1,22 @@
 package com.dis.practicafinal.practicafinalDIS;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
 import javax.servlet.annotation.WebServlet;
 
+import com.google.gson.Gson;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Label;
@@ -57,15 +68,15 @@ public class MyUI extends UI {
     // ------------------------ FIN pasar de objeto a json ---------------------------------------------------------------------
 
     	
-    // ----------------------------- Pasar de json a Objeto PETA -------------------------------------------------------------------
-    	/*
+    // ----------------------------- Cargamos los objetos Json a la agenda -------------------------------------------------------------------
+    	
 		try {
-			agenda.cargarJson();
+			agenda = agenda.cargarJson();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-    	*/
+    	
     // ----------------------------  Fin Pasar de json a objeto PETA -------------------------------------------------------------------
  
         
@@ -87,16 +98,31 @@ public class MyUI extends UI {
         tabsheet.addTab(tab4, "Borrar");
         tabsheet.addTab(tab5, "Configuración (Gson)");
         
-        //Botón 1
-        Button button2 = new Button("Click Me2");
-        button2.addClickListener(e -> {
-            layout.addComponent(new Label("Thanks, it works!"));
-        });
+        //Título
+        final Label titulo = new Label();
+        final Label titulo2 = new Label("<h1>Nuestra Agenda de Contactos</h1>", ContentMode.HTML);
+        titulo.setContentMode(ContentMode.HTML);
+        titulo.addStyleName("mititulo");
+        titulo.setCaption("Nuestra Aplicación de Contactos");
+        
+        //Label + Caja Mensajes
+        final Label mensajeAbajo = new Label();
+        mensajeAbajo.setCaption("");
         
         //Grid
         Grid<Usuario> grid = new Grid<>(Usuario.class);
+        grid.setSizeFull();
         grid.setItems(agenda.getContactos());
         grid.setColumns("nombre", "ape", "dir", "empresa", "mail", "numero");
+        if(agenda.tamanyo()>=8)
+            grid.setHeightByRows(8);
+        else 
+            grid.setHeightByRows(agenda.tamanyo());
+        
+        //Evento_GRID - Pulsar en un elemento del grid saca el detalle (este coso solo la funcion mostrar nombre por apellido)
+        grid.addItemClickListener(
+                event -> mensajeAbajo.setCaption(event.getItem().getNombre()+" "+event.getItem().getApe()+", "+event.getItem().getDir()+", "+event.getItem().getEmpresa()+", "+event.getItem().getMail()+", "+event.getItem().getNumero()+".")
+                );
         
         //------------FIN DE ELEMENTOS PRINCIPALES--------------
         
@@ -104,14 +130,12 @@ public class MyUI extends UI {
         
         //------------------PESTAÑA OVERVIEW---------------------
         
-        //Objeto 1
-        final TextField name1 = new TextField();
-        name1.setCaption("Pestaña 1");
+        //Descripción inicial
+        final Label Descripcion0 = new Label();
+        Descripcion0.setCaption("Vista general de los contactos de la aplicación.");
         
-        //Pulsar en un elemento del grid saca el detalle (este coso solo la funcion mostrar nombre por apellido)
-        grid.addItemClickListener(
-                event -> tab1.addComponent(new Label(event.getItem().toString() ))
-                );
+        
+
         //Cargamos los elementos en la pestaña asociada.
         tab1.addComponents(grid);
         
@@ -120,6 +144,10 @@ public class MyUI extends UI {
         
         
         //------------------PESTAÑA CREAR NUEVO USUARIO---------------------
+        
+        //Descripción inicial
+        final Label Descripcion1 = new Label();
+        Descripcion1.setCaption("Aquí puede añadir un nuevo usuario, rellenando los campos mostrados y haciendlo click en añadir. Puede comprobarlo en la tabla inferior.");
         
         final TextField txtnombre = new TextField();
         txtnombre.setCaption("Escribe tu nombre aqui:");
@@ -150,25 +178,35 @@ public class MyUI extends UI {
         	usuario.setMail(txtmail.getValue());
         	usuario.setNumero(txtnumero.getValue());
         	
-        	agenda.addContacto(usuario);
-        	
-        	
+    		if(usuario.getNombre().equals("") || usuario.getApe().equals("") || usuario.getDir().equals("") || usuario.getEmpresa().equals("") || usuario.getMail().equals("") || usuario.getNumero().equals("")) {
+                mensajeAbajo.setCaption("Complete todos los campos antes de añadir un nuevo usuario.");
+    		}
+    		else {
+    			agenda.addContacto(usuario);
+            	mensajeAbajo.setCaption("Se ha procedido a añadir al usuario " + usuario.getNombre());
+    		}
+        	//Comprobacion para ajustar la altura
+            if(agenda.tamanyo()>=8)
+                grid.setHeightByRows(8);
+            else 
+                grid.setHeightByRows(agenda.tamanyo());
+            
             grid.setItems(agenda.getContactos());
-        	
-            tab2.addComponent(new Label("Gracias " + txtnombre.getValue() 
-                    + ", Se ha registrado satisfactoriamente"));
             
             agenda.mostrarLista();
         });
 
         //Cargamos los elementos en la pestaña asociada.
-        tab2.addComponents(txtnombre, txtape, txtape, txtdir, txtempresa, txtmail, txtnumero, button, grid);
+        tab2.addComponents(Descripcion1, txtnombre, txtape, txtape, txtdir, txtempresa, txtmail, txtnumero, button, grid);
 
         //----------------FIN DE PESTAÑA DE CREAR USUARIO-------------------
         
 
         
         //------------------PESTAÑA CREAR MODIFICAR USUARIO---------------------
+        
+        final Label Descripcion2 = new Label();
+        Descripcion2.setCaption("Aquí puede modificar un usuario existente, haciendo click en el usuario y modificando sus valores. Una vez modificado, puede comprobarlo en la tabla inferior.");
         
     	final TextField modnombre = new TextField();
     	modnombre.setCaption("Escribe tu nombre aqui:");        
@@ -191,8 +229,6 @@ public class MyUI extends UI {
         //Pulsar en un elemento del grid saca el detalle (este coso solo la funcion mostrar nombre por apellido)
         grid.addItemClickListener(
                 event -> {umodificar = event.getItem();
-                System.out.println(umodificar.toString());
-                
                 modnombre.setValue(umodificar.getNombre());
                 modape.setValue(umodificar.getApe());
                 moddir.setValue(umodificar.getDir());
@@ -206,28 +242,44 @@ public class MyUI extends UI {
         	System.out.println("Antes");
         	agenda.mostrarLista();
         	
-            tab3.addComponent(new Label("el usuario " + umodificar.getNombre() 
-                    + ", Se ha modificado satisfactoriamente"));
+        	Usuario a = new Usuario(); 
+        	a.setNombre(modnombre.getValue());
+            a.setApe(modape.getValue());
+            a.setDir(moddir.getValue());
+            a.setEmpresa(modempresa.getValue());
+            a.setMail(modmail.getValue());
+            a.setNumero(modnumero.getValue()); 
+        	
+            if(umodificar == null)
+            	umodificar = a;
             
+        	if(agenda.buscar(umodificar) != -1)
+        		mensajeAbajo.setCaption("Se ha procedido a modificar el usuario.");
+            else
+        		mensajeAbajo.setCaption("No existe el usuario.");
+        	
             umodificar.setNombre(modnombre.getValue());
             umodificar.setApe(modape.getValue());
             umodificar.setDir(moddir.getValue());
             umodificar.setEmpresa(modempresa.getValue());
             umodificar.setMail(modmail.getValue());
             umodificar.setNumero(modnumero.getValue());       	
-        	//agenda.addContacto(usuario);            
+        	//agenda.addContacto(usuario);
+            //Comprobacion para ajustar la altura
+            
+            if(agenda.tamanyo()>=8)
+                grid.setHeightByRows(8);
+            else 
+                grid.setHeightByRows(agenda.tamanyo());
+            
             grid.setItems(agenda.getContactos());                       
             
             System.out.println("\n Despues");
             agenda.mostrarLista();
         });
-              
-        grid.setColumns("nombre", "ape", "dir", "empresa", "mail", "numero");
-        
-        grid.setItems(agenda.getContactos());
 
         //Cargamos los elementos en la pestaña asociada.
-        tab3.addComponents(modnombre, modape, moddir, modempresa, modmail, modnumero, buttonModificar, grid);
+        tab3.addComponents(Descripcion2, grid, modnombre, modape, moddir, modempresa, modmail, modnumero, buttonModificar);
         
         //----------------FIN DE PESTAÑA DE MODIFICAR USUARIO-------------------
         
@@ -236,35 +288,38 @@ public class MyUI extends UI {
         
         //------------------PESTAÑA DE BORRAR USUARIO---------------------
         
+        final Label Descripcion3 = new Label();
+        Descripcion3.setCaption("Aquí puede borrar un usuario existente. Haga click en el usuario deseado y después pulse 'borrar'. Una vez borrado, puede comprobarlo en la tabla inferior.");
                 
-        // pulsar en un elemento del grid saca el detalle (este coso solo la funcion mostrar nombre por apellido)
-           grid.addItemClickListener(
-                   event -> {uborrar = event.getItem();
-                   System.out.println(uborrar.toString());
-                   } );
+        //Pulsar en un elemento del grid saca el detalle (este coso solo la funcion mostrar nombre por apellido)
+        grid.addItemClickListener(
+                event -> {uborrar = event.getItem();
+                	System.out.println(uborrar.toString());
+                } );
            
-           Button buttonEliminar = new Button("Eliminar");
-           buttonEliminar.addClickListener(e -> {
-           	System.out.println("Antes");
-           	agenda.mostrarLista();
+        Button buttonEliminar = new Button("Eliminar");
+        buttonEliminar.addClickListener(e -> {
+        	System.out.println("Antes");
+        	agenda.mostrarLista();
            	
-               tab4.addComponent(new Label("el usuario " + uborrar.getNombre() 
-                       + ", Se ha eliminado satisfactoriamente"));
+        	agenda.eliminar(uborrar);	
+           	
+        	mensajeAbajo.setCaption("Se ha procedido a eliminar el usuario " + uborrar.getNombre());
                
-               grid.setItems(agenda.getContactos());
+           	//Comprobacion para ajustar la altura
+            if(agenda.tamanyo()>=8)
+                 grid.setHeightByRows(8);
+             else 
+                 grid.setHeightByRows(agenda.tamanyo());
+                
+            grid.setItems(agenda.getContactos());
                
-               agenda.eliminar(uborrar);
-               
-               System.out.println("\n Despues");
-               agenda.mostrarLista();
-           });           
-           
-           grid.setColumns("nombre", "ape", "dir", "empresa", "mail", "numero");
-           
-           grid.setItems(agenda.getContactos());
-           
-           //Cargamos los elementos en la pestaña asociada.
-           tab4.addComponents(buttonEliminar, grid);
+           	System.out.println("\n Despues");
+           	agenda.mostrarLista();
+        });           
+
+        //Cargamos los elementos en la pestaña asociada.
+        tab4.addComponents(Descripcion3, grid, buttonEliminar);
 
         //----------------FIN DE PESTAÑA DE BORRAR USUARIO-------------------
         
@@ -272,12 +327,50 @@ public class MyUI extends UI {
         
         
         //------------------PESTAÑA GSON---------------------
-        //Objeto 1
-        final TextField name5 = new TextField();
-        name5.setCaption("Pestaña 5");
+        
+        //Descripción
+        final Label Descripcion4 = new Label();
+        Descripcion4.setCaption("Aquí puede gestionar el Gson.");         
+        
+        //Boton generar gson
+        
+        //Texto donde va el Gson
+        final Label textoGson = new Label();
+        textoGson.setCaptionAsHtml(true);
+        textoGson.setCaption("");      
+        
+        Button buttonGson = new Button("Generar Json");
+        buttonGson.addClickListener(e -> {
+        	try {
+				agenda.guardarJson();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        	
+        	//Variable donde guardamos el texto
+        	String textoAux = "";
+
+        	//Cargamos el fichero JSon guardado y lo pasamos a string.
+    		try {
+    		      File myObj = new File("agenda.json");
+    		      Scanner myReader = new Scanner(myObj);
+    		      while (myReader.hasNextLine()) {
+    		        textoAux = textoAux + myReader.nextLine() + "<br/>";
+    		      }
+    		      //Ponemos los Labels.
+    		      mensajeAbajo.setCaption("Agenda guardada.");
+    		      textoGson.setCaption(textoAux);
+    		      //Cerramos el archivo.
+    		      myReader.close();
+    		    } catch (FileNotFoundException e2) {
+    		    	mensajeAbajo.setCaption("El json no se ha podido generar.");
+    		    }
+
+        });
         
         //Cargamos los elementos en la pestaña asociada.
-        tab5.addComponents();
+        tab5.addComponents(Descripcion4, textoGson, buttonGson);
         
         //----------------FIN DE PESTAÑA GSON-------------------
 
@@ -304,19 +397,25 @@ public class MyUI extends UI {
 	            
 	            switch(caption) {
 	            case "Overview":	            	 
-	            	tab.addComponents(grid);
+	            	tab.addComponents(Descripcion0, grid);
+	            	mensajeAbajo.setCaption("");
 	            	break;
 	            case "Añadir":
-	                tab.addComponents(txtnombre, txtape, txtape, txtdir, txtempresa, txtmail, txtnumero, button, grid);
+	                tab.addComponents(Descripcion1, txtnombre, txtape, txtape, txtdir, txtempresa, txtmail, txtnumero, button, grid);
+	                mensajeAbajo.setCaption("");
 	            	break;
 	            case "Modificar":
-	            	tab.addComponents(modnombre, modape, moddir, modempresa, modmail, modnumero, buttonModificar, grid);
+	                tab.addComponents(Descripcion2, grid, modnombre, modape, moddir, modempresa, modmail, modnumero, buttonModificar);
+	                mensajeAbajo.setCaption("");
 	                break;
 	            case "Borrar":
-	                tab.addComponents(buttonEliminar, grid);
+	            	tab.addComponents(Descripcion3, grid, buttonEliminar);
+	            	mensajeAbajo.setCaption("");
 	            	break;
 	            case "Configuración (Gson)":
-			        tab.addComponents();
+	            	tab.addComponents(Descripcion4, textoGson, buttonGson);
+	            	mensajeAbajo.setCaption("");
+	            	textoGson.setCaption("");
 	            	break;
 	            default:
 	            	break;
@@ -328,10 +427,11 @@ public class MyUI extends UI {
         
         //----------CARGA DEL LAYOUT------------------
         //Ponemos los elementos del layout (siempre visibles)
-        layout.addComponents(tabsheet);
+        layout.addComponents(titulo2, tabsheet,mensajeAbajo);
         
         //Ponemos los elementos de la pestaña que queremos cargar (tab1).
-        layout.addComponents(grid);
+        Layout tabInicial = (Layout) tabsheet.getSelectedTab();
+        tabInicial.addComponents(Descripcion0, grid);
 
         setContent(layout);
         //----------FIN DE CARGA DEL LAYOUT------------------
