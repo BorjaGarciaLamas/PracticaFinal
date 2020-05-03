@@ -1,11 +1,22 @@
 package com.dis.practicafinal.practicafinalDIS;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
 import javax.servlet.annotation.WebServlet;
 
+import com.google.gson.Gson;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Label;
@@ -60,7 +71,7 @@ public class MyUI extends UI {
     // ----------------------------- Pasar de json a Objeto PETA -------------------------------------------------------------------
     	/*
 		try {
-			agenda.cargarJson();
+			agenda = agenda.cargarJson();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -89,8 +100,10 @@ public class MyUI extends UI {
         
         //Título
         final Label titulo = new Label();
-        titulo.setCaption("Nuestra Aplicación de Contactos");
+        final Label titulo2 = new Label("<h1>Nuestra Agenda de Contactos</h1>", ContentMode.HTML);
+        titulo.setContentMode(ContentMode.HTML);
         titulo.addStyleName("mititulo");
+        titulo.setCaption("Nuestra Aplicación de Contactos");
         
         //Label + Caja Mensajes
         final Label mensajeAbajo = new Label();
@@ -301,8 +314,45 @@ public class MyUI extends UI {
         final Label Descripcion4 = new Label();
         Descripcion4.setCaption("Aquí puede gestionar el Gson.");         
         
+        //Boton generar gson
+        
+        //Texto donde va el Gson
+        final Label textoGson = new Label();
+        textoGson.setCaptionAsHtml(true);
+        textoGson.setCaption("");      
+        
+        Button buttonGson = new Button("Generar Json");
+        buttonGson.addClickListener(e -> {
+        	try {
+				agenda.guardarJson();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        	
+        	//Variable donde guardamos el texto
+        	String textoAux = "";
+
+        	//Cargamos el fichero JSon guardado y lo pasamos a string.
+    		try {
+    		      File myObj = new File("agenda.json");
+    		      Scanner myReader = new Scanner(myObj);
+    		      while (myReader.hasNextLine()) {
+    		        textoAux = textoAux + myReader.nextLine() + "<br/>";
+    		      }
+    		      //Ponemos los Labels.
+    		      mensajeAbajo.setCaption("Json generado");
+    		      textoGson.setCaption(textoAux);
+    		      //Cerramos el archivo.
+    		      myReader.close();
+    		    } catch (FileNotFoundException e2) {
+    		    	mensajeAbajo.setCaption("El json no se ha podido generar.");
+    		    }
+
+        });
+        
         //Cargamos los elementos en la pestaña asociada.
-        tab5.addComponents(Descripcion4);
+        tab5.addComponents(Descripcion4, textoGson, buttonGson);
         
         //----------------FIN DE PESTAÑA GSON-------------------
 
@@ -341,8 +391,9 @@ public class MyUI extends UI {
 	            	tab.addComponents(Descripcion3, grid, buttonEliminar);
 	            	break;
 	            case "Configuración (Gson)":
-	            	tab.addComponents(Descripcion4);
+	            	tab.addComponents(Descripcion4, textoGson, buttonGson);
 	            	mensajeAbajo.setCaption("");
+	            	textoGson.setCaption("");
 	            	break;
 	            default:
 	            	break;
@@ -354,7 +405,7 @@ public class MyUI extends UI {
         
         //----------CARGA DEL LAYOUT------------------
         //Ponemos los elementos del layout (siempre visibles)
-        layout.addComponents(titulo, tabsheet,mensajeAbajo);
+        layout.addComponents(titulo2, tabsheet,mensajeAbajo);
         
         //Ponemos los elementos de la pestaña que queremos cargar (tab1).
         Layout tabInicial = (Layout) tabsheet.getSelectedTab();
