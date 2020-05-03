@@ -2,6 +2,8 @@ package com.dis.practicafinal.practicafinalDIS;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 public class AppTest {
@@ -13,17 +15,17 @@ public class AppTest {
 		assertEquals("Borja", u.getNombre());
 	}
 
-	@Test
-	public void guardarUsuario() {
-		
-		Usuario u = new Usuario("Borja", "garcia", "Saliente 651", "BBVA", "borja@gmail.com", "123456789");
-		Lista contactos = new Lista();
-		
-		contactos.addContacto(u);
-		assertEquals(6, contactos.tamanyo());
-		
-	}
-	
+//	@Test
+//	public void guardarUsuario() {
+//		
+//		Usuario u = new Usuario("Borja", "garcia", "Saliente 651", "BBVA", "borja@gmail.com", "123456789");
+//		Lista contactos = new Lista();
+//		
+//		contactos.addContacto(u);
+//		assertEquals(6, contactos.tamanyo());
+//		
+//	}
+//	
 	@Test
 	public void modificarUsuario() {
 		Usuario u = new Usuario("Borja", "garcia", "Saliente 651", "BBVA", "borja@gmail.com", "123456789");
