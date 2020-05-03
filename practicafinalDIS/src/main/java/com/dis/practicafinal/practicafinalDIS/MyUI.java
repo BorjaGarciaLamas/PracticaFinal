@@ -39,7 +39,7 @@ public class MyUI extends UI {
 	
 	//Inicialización de variables
 	Lista agenda = new Lista();
-	Usuario usuario = new Usuario();
+	
 	Usuario uborrar = new Usuario();
 	Usuario umodificar = new Usuario();
 
@@ -171,6 +171,7 @@ public class MyUI extends UI {
         
 		Button button = new Button("Añadir");
         button.addClickListener(e -> {
+        	Usuario usuario = new Usuario();
         	usuario.setNombre(txtnombre.getValue());
         	usuario.setApe(txtape.getValue());
         	usuario.setDir(txtdir.getValue());
@@ -181,7 +182,7 @@ public class MyUI extends UI {
     		if(usuario.getNombre().equals("") || usuario.getApe().equals("") || usuario.getDir().equals("") || usuario.getEmpresa().equals("") || usuario.getMail().equals("") || usuario.getNumero().equals("")) {
                 mensajeAbajo.setCaption("Complete todos los campos antes de añadir un nuevo usuario.");
     		}
-    		else {
+    		else {    			
     			agenda.addContacto(usuario);
             	mensajeAbajo.setCaption("Se ha procedido a añadir al usuario " + usuario.getNombre());
     		}
@@ -253,7 +254,7 @@ public class MyUI extends UI {
             if(umodificar == null)
             	umodificar = a;
             
-        	if(agenda.buscar(umodificar) != -1)
+        	if(agenda.buscar(a) != -1)
         		mensajeAbajo.setCaption("Se ha procedido a modificar el usuario.");
             else
         		mensajeAbajo.setCaption("No existe el usuario.");

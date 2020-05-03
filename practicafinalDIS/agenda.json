@@ -1,5 +1,7 @@
 {"id":0,"nombre":"ObiWan","ape":"Kenobi","dir":"Coruscant","empresa":"OrdenJedi","mail":"obiwankenobi@ordenjedi.com","numero":"123456"}
-{"id":1,"nombre":"Anakin","ape":"SkyWalker","dir":"Tatooine","empresa":"OrdenJedi","mail":"anakinskywalker@ordenjedi.com","numero":"1236"}
-{"id":2,"nombre":"Lando","ape":"Calrissian","dir":"123123","empresa":"Gobierno","mail":"landomilenario@codere.com","numero":"569"}
-{"id":3,"nombre":"Leia","ape":"Hola","dir":"Not Alderaan","empresa":"Republica","mail":"lorganarep@futurarepublica.com","numero":"3456789"}
-{"id":4,"nombre":"Han","ape":"Solo","dir":"Tatooine","empresa":"Jabba the hutt,","mail":"halconmilenariosolo@jabbafriends.com","numero":"45679"}
+{"id":1,"nombre":"Lando","ape":"Calrissian","dir":"Ciudad de las nubes","empresa":"Gobierno","mail":"landomilenario@codere.com","numero":"569"}
+{"id":2,"nombre":"Leia","ape":"Organa","dir":"Not Alderaan","empresa":"Republica","mail":"lorganarep@futurarepublica.com","numero":"3456789"}
+{"id":3,"nombre":"Han","ape":"Solo","dir":"Tatooine","empresa":"Jabba the hutt","mail":"halconmilenariosolo@jabbafriends.com","numero":"45679"}
+{"id":4,"nombre":"Anakin","ape":"Skywalker","dir":"Tatooine","empresa":"Orden Jedi","mail":"aniskywalker1999@ordenjedi.com","numero":"12369"}
+{"id":5,"nombre":"Sheev","ape":"Palpatine","dir":"Estrella de la Muerte","empresa":"Imperio","mail":"sidios1243@onlysithlords.com","numero":"123569"}
+{"id":6,"nombre":"Darth","ape":"Franciscus Borjious","dir":"CUCUSCLAN","empresa":"Magia Borras","mail":"borjagl2014@gmail.com","numero":"5"}
